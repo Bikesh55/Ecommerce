@@ -26,8 +26,10 @@ Route::get('/', function () {
 });
 
 
-Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
-Route::post('/auth/check', [MainController::class, 'check'])->name('auth.check');
+// Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
+Route::post('auth/save', [UserController::class, 'save'])->name('auth.save');
+Route::post('/auth/check', [UserController::class, 'check'])->name('auth.check');
+// Route::post('/auth/check', [MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
 
 // Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
@@ -51,6 +53,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('admin/product/delete/{id}', [ProductController::class, 'delete']);
 });
 
-Route::group(['middleware'=>['AuthCheck', 'auth']], function(){
-    Route::get('/profile',[UserController::class, 'profile'])->name('profile');
+Route::group(['middleware'=>['AuthCheck']], function(){
+    Route::get('/user/profile', [UserController::class, 'userProfile'])->name('userProfile');
 });
+
+
+
